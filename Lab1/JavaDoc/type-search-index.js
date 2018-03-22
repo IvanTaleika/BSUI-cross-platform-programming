@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"cpp.lab1.gui","l":"ConverterGUI"}]
