@@ -1,1 +1,1 @@
-BSUI-cross-platform-programming
+This repo contents labs for cross platform programming subject. Cross platform programming course provides basic Java and Scala knowledges.
