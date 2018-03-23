@@ -4,14 +4,9 @@ import cpp.lab1.logic.Converter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 
-import java.text.DecimalFormat;
-
+import cpp.lab1.utils.StringAsNumberUtils;
 /**
  * Provides GUI for a {@link Converter} class.
  * <p>
@@ -23,28 +18,24 @@ public class ConverterGUI {
     /**
      * Number of columns in GridLayout.
      */
-    private static final int N_COLUMNS = 2;
+    public static final int N_COLUMNS = 2;
     /**
      * Array of label names.
      */
-    private static final String[] VALUE_NAMES = {"Метры", "Дюймы"};
+    public static final String[] VALUE_NAMES = {"Метры", "Дюймы"};
     /**
      * Indent between button and text field.
      */
-    private static final int BUTTONS_VERTICAL_INDENT = 10;
+    public static final int BUTTONS_VERTICAL_INDENT = 10;
     /**
      * Minimum width of GUI shell.
      */
-    private static final int MINIMUM_WIDTH = 400;
+    public static final int MINIMUM_WIDTH = 500;
     /**
      * Minimum height of GUI shell.
      */
-    private static final int MINIMUM_HEIGHT = 180;
-    /**
-     * Default number decimal digits that are showed in a text field
-     * after converting.
-     */
-    private static final int N_DECIMAL_DIGITS_DEFAULT = 2;
+    public static final int MINIMUM_HEIGHT = 150;
+
 
 
     private Shell shell;
@@ -58,6 +49,7 @@ public class ConverterGUI {
 
     /**
      * Construct a new instance of a class on a display.
+     *
      * @param display a display object to create a shell on it
      */
     public ConverterGUI(final Display display) {
@@ -90,6 +82,7 @@ public class ConverterGUI {
 
     /**
      * Calls {@code Shell.isDisposed()<} method.
+     *
      * @return true if this widget has been disposed, and false otherwise
      */
     public boolean isDisposed() {
@@ -108,6 +101,7 @@ public class ConverterGUI {
 
     /**
      * Customizes and adds single label on interface.
+     *
      * @param valueLabel a label that should be built
      * @param text       a label's text
      */
@@ -129,6 +123,7 @@ public class ConverterGUI {
 
     /**
      * Customizes and adds single text field on interface.
+     *
      * @param textField a text field that should be built
      */
     private void buildTextField(final Text textField) {
@@ -145,36 +140,67 @@ public class ConverterGUI {
         metreToInchConvertButton = new Button(shell, SWT.PUSH);
         buildConvertButton(metreToInchConvertButton,
                 VALUE_NAMES[0] + " в " + VALUE_NAMES[1]);
-        metreToInchConvertButton.addListener(SWT.Selection, event -> {
-            if (metreTextField.getText().isEmpty()) {
-                return;
-            }
-            String metreStringValue = metreTextField.getText();
-            if (isDouble(metreStringValue)) {
-                inchTextField.setText(getTextDecimalFormat(metreStringValue)
-                        .format(Converter.metreToInch(Double
-                                .parseDouble(metreStringValue))));
-            }
-        });
+        metreToInchConvertButton.addListener(SWT.Selection,
+                event -> metreToInchListener());
 
         inchToMetreConvertButton = new Button(shell, SWT.PUSH);
         buildConvertButton(inchToMetreConvertButton,
                 VALUE_NAMES[1] + " в " + VALUE_NAMES[0]);
-        inchToMetreConvertButton.addListener(SWT.Selection, event -> {
-            if (inchTextField.getText().isEmpty()) {
-                return;
-            }
-            String inchStringValue = inchTextField.getText();
-            if (isDouble(inchStringValue)) {
-                metreTextField.setText(getTextDecimalFormat(inchStringValue)
-                        .format(Converter.inchToMetre(Double
-                                .parseDouble(inchStringValue))));
-            }
-        });
+        inchToMetreConvertButton.addListener(SWT.Selection,
+                event -> inchToMetreListener());
+    }
+
+    /**
+     * Is an action listener for {@code metreToInchButton}.
+     * Do nothing if {@code metreTextField} is empty.
+     * Otherwise parse text inside {@code metreTextField} to double, on success
+     * call convert this number from metres to inches,
+     * print error message otherwise.
+     */
+    private void metreToInchListener() {
+        if (metreTextField.getText().isEmpty()) {
+            return;
+        }
+        String metreStringValue = metreTextField.getText();
+        try {
+            double metreLength = Double.parseDouble(metreStringValue);
+            StringAsNumberUtils stringAsNumberUtils =
+                    new StringAsNumberUtils();
+            inchTextField.setText(stringAsNumberUtils
+                    .getTextDecimalFormat(metreStringValue)
+                    .format(Converter.metreToInch(metreLength)));
+        } catch (NumberFormatException e) {
+            inchTextField.setText("Некорректное значение в метрах!");
+        }
+    }
+
+    /**
+     * Is an action listener for {@code inchToMetreButton}.
+     * Do nothing if {@code inchTextField} is empty.
+     * Otherwise parse text inside {@code inchTextField} to double, on success
+     * call convert this number from inches to metres,
+     * print error message otherwise.
+     */
+    private void inchToMetreListener() {
+        if (inchTextField.getText().isEmpty()) {
+            return;
+        }
+        String inchStringValue = inchTextField.getText();
+        try {
+            double inchLength = Double.parseDouble(inchStringValue);
+            StringAsNumberUtils stringAsNumberUtils =
+                    new StringAsNumberUtils();
+            metreTextField.setText(stringAsNumberUtils
+                    .getTextDecimalFormat(inchStringValue)
+                    .format(Converter.inchToMetre(inchLength)));
+        } catch (NumberFormatException e) {
+            metreTextField.setText("Некоректное значение в дюймах!");
+        }
     }
 
     /**
      * Customizes and adds single button on interface.
+     *
      * @param convertButton a button that should be built
      * @param text          a button's text
      */
@@ -185,51 +211,5 @@ public class ConverterGUI {
         gridData.verticalIndent = BUTTONS_VERTICAL_INDENT;
         convertButton.setLayoutData(gridData);
     }
-
-    /**
-     * Checks is string can be converted to double.
-     *
-     * @param str source string
-     * @return {@code true} if string can be converted, {@code false} instead
-     */
-    private boolean isDouble(final String str) {
-        try {
-            Double.parseDouble(str);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Creates {@link DecimalFormat} object with certain fraction digits
-     * numbers built on stringValue content.
-     * @param stringValue text from source Text object
-     * @return DecimalFormat object
-     */
-    private DecimalFormat getTextDecimalFormat(final String stringValue) {
-        int numberOfDecimalDigit = stringValue.indexOf('.') == -1 ? 0
-                : stringValue.length() - stringValue.indexOf('.') - 1;
-        DecimalFormat decimalFormat = new DecimalFormat();
-        decimalFormat.setMaximumFractionDigits(
-                numberOfDecimalDigit > N_DECIMAL_DIGITS_DEFAULT
-                        ? numberOfDecimalDigit : N_DECIMAL_DIGITS_DEFAULT);
-        return decimalFormat;
-    }
-
-
-
-//    public void setNDecimalDigitsDefault(int nDecimalDigitsDefault) {
-//        this.N_DECIMAL_DIGITS_DEFAULT = nDecimalDigitsDefault;
-//    }
-//
-//    public int getNDecimalDigitsDefault() {
-//        return N_DECIMAL_DIGITS_DEFAULT;
-//    }
-
-//    //Allows subclassing
-//    protected void checkSubclass() {
-//
-//    }
 
 }
