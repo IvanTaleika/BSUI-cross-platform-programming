@@ -1,0 +1,70 @@
+package cpp.lab2.gui.main;
+
+
+import cpp.lab2.gui.dialogs.MoneyInputDialog;
+import cpp.lab2.gui.dialogs.OrderDialog;
+import cpp.lab2.gui.dialogs.SwitchClientDialog;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * @author xefza
+ * @version 1.0
+ * @created 03-Apr-2018 17:46:47
+ */
+public class Controller {
+
+    private JPanel buttonsPanel;
+    private JButton switchClientButton;
+    private JButton newOrderButton;
+    private JButton setMoneyButton;
+    private SwitchClientDialog switchClientDialog;
+    private OrderDialog orderDialog;
+    private MoneyInputDialog moneyInputDialog;
+
+    public Controller() {
+        buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
+
+        buttonsPanel.add(Box.createVerticalGlue());
+        newOrderButton = new JButton("Make order");
+        newOrderButton.addActionListener(e -> {
+            if(orderDialog == null){
+                orderDialog = new OrderDialog();
+            }
+            orderDialog.setVisible(true);
+        });
+        buttonsPanel.add(newOrderButton);
+        buttonsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        setMoneyButton = new JButton("Add money");
+        setMoneyButton.addActionListener(e -> {
+            if(moneyInputDialog == null){
+                moneyInputDialog = new MoneyInputDialog();
+            }
+            moneyInputDialog.setVisible(true);
+        });
+        buttonsPanel.add(setMoneyButton);
+        buttonsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        switchClientButton = new JButton("Switch client");
+        switchClientButton.addActionListener(e -> {
+            if(switchClientDialog == null){
+                switchClientDialog = new SwitchClientDialog();
+            }
+            switchClientDialog.setVisible(true);
+        });
+        buttonsPanel.add(switchClientButton);
+        buttonsPanel.add(Box.createVerticalGlue());
+
+        setMoneyButton.setMaximumSize(switchClientButton.getMaximumSize());
+        newOrderButton.setMaximumSize(switchClientButton.getMaximumSize());
+    }
+
+
+    public JPanel getButtonsPanel() {
+        return buttonsPanel;
+    }
+
+}
