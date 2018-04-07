@@ -1,6 +1,5 @@
 package cpp.lab2.logic;
 
-//TODO: make utility class
 /**
  * @author xefza
  * @version 1.0
@@ -8,14 +7,11 @@ package cpp.lab2.logic;
  */
 public class Company {
 
-    public Order m_Order;
+    public static final double LETTER_COST = 2.5;
+    private int idMemory;
 
     public Company() {
-
-    }
-
-    public void finalize() throws Throwable {
-
+        idMemory = 0;
     }
 
     /**
@@ -23,14 +19,15 @@ public class Company {
      * @param amount
      */
     public double countPrice(String name, int amount) {
-        return 0;
+        double price = name.length() * amount * LETTER_COST;
+        return price;
     }
 
     /**
      * @param order
      */
     public void performOrder(Order order) {
-
+        order.setReady();
     }
 
     /**
@@ -38,7 +35,9 @@ public class Company {
      * @param amount
      */
     public Order receiveOrder(String name, int amount) {
-        return null;
+        Order order = new Order(name, amount, idMemory, countPrice(name, amount));
+        idMemory++;
+        performOrder(order);
+        return order;
     }
-
 }

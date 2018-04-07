@@ -4,6 +4,7 @@ package cpp.lab2.gui.main;
 import cpp.lab2.gui.dialogs.MoneyInputDialog;
 import cpp.lab2.gui.dialogs.OrderDialog;
 import cpp.lab2.gui.dialogs.SwitchClientDialog;
+import cpp.lab2.logic.Shop;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +24,7 @@ public class Controller {
     private OrderDialog orderDialog;
     private MoneyInputDialog moneyInputDialog;
 
-    public Controller() {
+    public Controller(JFrame owner, Shop shop) {
         buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
 
@@ -31,7 +32,7 @@ public class Controller {
         newOrderButton = new JButton("Make order");
         newOrderButton.addActionListener(e -> {
             if(orderDialog == null){
-                orderDialog = new OrderDialog();
+                orderDialog = new OrderDialog(owner, shop);
             }
             orderDialog.setVisible(true);
         });
@@ -41,7 +42,7 @@ public class Controller {
         setMoneyButton = new JButton("Add money");
         setMoneyButton.addActionListener(e -> {
             if(moneyInputDialog == null){
-                moneyInputDialog = new MoneyInputDialog();
+                moneyInputDialog = new MoneyInputDialog(owner, shop);
             }
             moneyInputDialog.setVisible(true);
         });
@@ -51,7 +52,7 @@ public class Controller {
         switchClientButton = new JButton("Switch client");
         switchClientButton.addActionListener(e -> {
             if(switchClientDialog == null){
-                switchClientDialog = new SwitchClientDialog();
+                switchClientDialog = new SwitchClientDialog(owner, shop);
             }
             switchClientDialog.setVisible(true);
         });

@@ -6,6 +6,8 @@ package cpp.lab2.logic;
  * @created 03-Apr-2018 17:46:47
  */
 public class Order {
+
+
     public enum State {
         IN_PROGRESS,
         READY
@@ -23,6 +25,18 @@ public class Order {
         this.id = id;
         this.price = price;
         state = State.IN_PROGRESS;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public double getPrice() {

@@ -6,15 +6,16 @@ package cpp.lab2.logic;
  * @version 1.0
  * @created 03-Apr-2018 17:46:47
  */
-public class Client {
+abstract public class Client {
 
     private double money;
     private String name;
-//	public Company m_Company;
+    private Company company;
 
-    public Client(String name, double money) {
+    public Client(String name, double money, Company company) {
         this.name = name;
         this.money = money;
+        this.company = company;
     }
 
 
@@ -30,22 +31,26 @@ public class Client {
      * @param name
      * @param amount
      */
-    public void makeOrder(String name, int amount) {
-
+    public Order makeOrder(String name, int amount) {
+        Order order = company.receiveOrder(name, amount);
+        pay(order.getPrice());
+        return order;
     }
 
     /**
      * @param cost
      */
     public void pay(double cost) {
-
+        money -= cost;
     }
 
     /**
      * @param money
      */
     public void setMoney(double money) {
-
+        this.money = money;
     }
+
+    public abstract String getType();
 
 }

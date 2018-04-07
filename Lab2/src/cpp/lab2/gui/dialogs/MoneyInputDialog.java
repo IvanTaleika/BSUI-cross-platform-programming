@@ -1,6 +1,7 @@
 package cpp.lab2.gui.dialogs;
 
 import cpp.lab2.gui.GBC;
+import cpp.lab2.logic.Shop;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,13 +9,14 @@ import java.awt.*;
 public class MoneyInputDialog {
     private JDialog dialog;
     private JTextField moneyField;
+    private Shop shop;
     public static final int DEFAULT_INSETS = 5;
     public static final int MINIMUM_WIDTH = 300;
     public static final int MINIMUM_HEIGHT = 150;
 
-    public MoneyInputDialog(){
-        dialog = new JDialog();
-        dialog.setModal(true);
+    public MoneyInputDialog(JFrame owner, Shop shop){
+        this.shop = shop;
+        dialog = new JDialog(owner, true);
         dialog.setTitle("Money input");
         dialog.setMinimumSize(new Dimension(MINIMUM_WIDTH, MINIMUM_HEIGHT));
         GridBagLayout layout = new GridBagLayout();
@@ -29,14 +31,12 @@ public class MoneyInputDialog {
                 1).setWeight(100,0).setFill(GBC.BOTH)
                   .setInsets(DEFAULT_INSETS));
 
-
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.addActionListener(e -> {
-            dialog.setVisible(false);
-        });
+        cancelButton.addActionListener(e -> dialog.setVisible(false));
 
         dialog.add(cancelButton, new GBC(0,2).setInsets(5));
         JButton okButton = new JButton("Add");
+
         okButton.addActionListener(e -> okButtonListener());
         dialog.add(okButton, new GBC(1,2).setAnchor(GBC.EAST)
                                          .setInsets(DEFAULT_INSETS));
@@ -53,7 +53,7 @@ public class MoneyInputDialog {
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
-        //TODO: send data from fields to ClientDatabase
+        shop.getClientBase().updateCurrentClientMoney(amountDoubleValue);
         moneyField.setText("");
         dialog.setVisible(false);
     }

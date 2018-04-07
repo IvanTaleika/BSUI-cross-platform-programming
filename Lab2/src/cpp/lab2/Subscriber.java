@@ -1,7 +1,7 @@
 package cpp.lab2;
 
 
-import java.util.LinkedList;
+import java.util.Vector;
 
 /**
  * @author xefza
@@ -11,15 +11,13 @@ import java.util.LinkedList;
 public interface Subscriber {
 
     /**
-     * @param clientType
-     * @param name
-     * @param money
-     */
-    public void updateClientInfo(String clientType, String name, String money);
-
-    /**
      * @param orders
      */
-    public void updateClientOrders(LinkedList<String> orders);
+    public void updateClientOrders(Vector<Vector<Object>> orders);
+    public void addClientOrders(Vector<Object> orderInfo);
+
+    public void updateClientMoney(double money);
+    public void updateClientName(String name);
+    public void updateClientType(String clientType);
 
 }
