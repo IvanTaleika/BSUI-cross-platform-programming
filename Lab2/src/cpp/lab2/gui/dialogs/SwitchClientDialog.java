@@ -55,7 +55,7 @@ public class SwitchClientDialog {
         cancelButton.addActionListener(e -> dialog.setVisible(false));
 
         dialog.add(cancelButton, new GBC(0, 4).setInsets(5));
-        JButton okButton = new JButton("Add");
+        JButton okButton = new JButton("Buy");
         okButton.addActionListener(e -> okButtonListener());
         dialog.add(okButton, new GBC(1, 4).setAnchor(GBC.EAST)
                                           .setInsets(DEFAULT_INSETS));

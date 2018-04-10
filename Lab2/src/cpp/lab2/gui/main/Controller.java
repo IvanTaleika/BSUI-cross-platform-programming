@@ -49,7 +49,7 @@ public class Controller {
         buttonsPanel.add(setMoneyButton);
         buttonsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        switchClientButton = new JButton("Switch client");
+        switchClientButton = new JButton("New client");
         switchClientButton.addActionListener(e -> {
             if(switchClientDialog == null){
                 switchClientDialog = new SwitchClientDialog(owner, shop);
@@ -59,8 +59,8 @@ public class Controller {
         buttonsPanel.add(switchClientButton);
         buttonsPanel.add(Box.createVerticalGlue());
 
-        setMoneyButton.setMaximumSize(switchClientButton.getMaximumSize());
-        newOrderButton.setMaximumSize(switchClientButton.getMaximumSize());
+        setMoneyButton.setMaximumSize(newOrderButton.getMaximumSize());
+        switchClientButton.setMaximumSize(newOrderButton.getMaximumSize());
     }
 
 
