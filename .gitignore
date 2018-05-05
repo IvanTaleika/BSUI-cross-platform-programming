@@ -1,18 +1,12 @@
 
-Lab2/\.idea/
-
-Lab3/\.idea/
-
-Lab3/out/
-
-Java/Lab2/\.idea/
-
 *.iml
 
 *.idea
 
 *out
 
-Java/Lab3/\.idea/
+*project
 
-Java/Lab3/out/
+*target
+
+*.sbt
