@@ -5,10 +5,10 @@ import scala.util.Random
   */
 object Task1 {
   /**
-    * Sum up positive numbers in List
+    * Sum up positive numbers in a List
     *
     * @param list source list
-    * @return     positive elements sum
+    * @return positive elements sum
     */
   def sumPositive(list: List[Int]): Int = {
     val takePositive: PartialFunction[Int, Int] = {
@@ -26,7 +26,7 @@ object Task2 {
     * Reverses source list
     *
     * @param list source list
-    * @return     reversed list
+    * @return reversed list
     */
   def reverse(list: List[Any]): List[Any] = {
     list.foldRight(List[Any]())((x, z) => z :+ x)
@@ -41,7 +41,7 @@ object Task3 {
     * Gets keys of elements that are even numbers
     *
     * @param map [String, Int] map
-    * @return     List[String] of keys
+    * @return List[String] of keys
     */
   def evenKeyMap(map: Map[String, Int]): List[String] = {
     map.filter(t => t._2 % 2 == 0).keys.toList
@@ -55,7 +55,8 @@ object Task3 {
   */
 object Source extends App {
   val lSource: List[Int] = Seq.fill(5)(Random.nextInt() % 100).toList
-  val mSource = Map[String, Int]("first" -> -3, "second" -> 4, "third" -> 1, "forth" -> 0, "fifth" -> 2)
+  val mSource = Map("three" -> -3, "four" -> 4, "one" -> 1,
+    "zero" -> 0, "minus one" -> -1, "minus two" -> -2)
   println("Source list:")
   println(lSource.mkString(" "))
 

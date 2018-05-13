@@ -26,7 +26,7 @@ object Task1 {
     *
     * @param list source List
     * @param n    element index
-    * @return     element
+    * @return element
     */
   def nonRecursive(list: List[Any], n: Int): Any = {
     list(n)
@@ -40,10 +40,10 @@ object Task1 {
 object Task2 {
   /**
     * recursive way to selects all elements in the `List`
-    * that are lower than sum of previous 2 elements    *
+    * that are lower than sum of previous 2 elements
     *
     * @param source source list
-    * @return       converted list
+    * @return converted list
     */
   def recursive(source: List[Int]): List[Int] = {
     @tailrec
@@ -66,18 +66,18 @@ object Task2 {
     getElements(source, List[Int]())
   }
 
-//  def nonRecursive[T](list: List[T])(implicit n: Numeric[T]): List[T] = {
-//    import n._
-//    for (i <- 0 until (list.length - 2) if n.minus(list(i + 2), n.plus(list(i + 1), list(i)))
-//      < 0.asInstanceOf[T]) yield list(i + 2)
-//  }.toList
+  //  def nonRecursive[T](list: List[T])(implicit n: Numeric[T]): List[T] = {
+  //    import n._
+  //    for (i <- 0 until (list.length - 2) if n.minus(list(i + 2), n.plus(list(i + 1), list(i)))
+  //      < 0.asInstanceOf[T]) yield list(i + 2)
+  //  }.toList
 
   /**
     * Non recursive way to selects all elements in the `List`
     * that are lower than sum of previous 2 elements
     *
     * @param list source list
-    * @return     converted list
+    * @return converted list
     */
   def nonRecursive(list: List[Int]): List[Int] = {
     for (i <- 0 until (list.length - 2) if (list(i + 2) - list(i + 1) - list(i)) < 0) yield list(i + 2)
