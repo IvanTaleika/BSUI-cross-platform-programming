@@ -34,7 +34,7 @@ object Task2 {
 }
 
 /**
-  * Object that represents functions for 3st task in laboratory work
+  * Object that represents functions for 3rd task in laboratory work
   */
 object Task3 {
   /**
