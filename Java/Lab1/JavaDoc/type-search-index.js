@@ -1,1 +1,0 @@
-typeSearchIndex = [{"p":"cpp.lab1.logic","l":"Converter"},{"p":"cpp.lab1.gui","l":"ConverterGUI"},{"p":"cpp.lab1.tests","l":"ConverterTest"},{"p":"cpp.lab1","l":"Source"},{"p":"cpp.lab1.utils","l":"StringAsNumberUtils"},{"p":"cpp.lab1.tests","l":"StringAsNumberUtilsTest"}]

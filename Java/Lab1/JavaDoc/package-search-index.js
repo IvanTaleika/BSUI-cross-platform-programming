@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"cpp.lab1"},{"l":"cpp.lab1.gui"},{"l":"cpp.lab1.logic"},{"l":"cpp.lab1.tests"},{"l":"cpp.lab1.utils"}]
